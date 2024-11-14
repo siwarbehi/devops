@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select an Audio File 🎶</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 100px 100px; /* Increased padding for more space */
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Slightly increased shadow for depth */
+            width: 100%;
+            max-width: 600px; /* Increased max-width */
+        }
+
+        h2 {
+            font-size: 28px; /* Increased font size */
+            margin-bottom: 30px; /* Increased margin for more spacing */
+            color: #333;
+        }
+
+        .file-input {
+            margin: 20px 0; /* Increased margin */
+            padding: 15px 20px; /* Increased padding for better interaction */
+            font-size: 18px; /* Increased font size */
+            background-color: #f0f0f0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            width: 100%;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .file-input:hover {
+            border-color: #4CAF50;
+        }
+
+        p {
+            font-size: 18px; /* Increased font size for the file name display */
+            color: #555;
+            margin-top: 30px; /* Increased margin for better spacing */
+            transition: color 0.3s ease;
+        }
+
+        p#file-name {
+            font-weight: bold;
+        }
+
+        p:hover {
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Select an Audio File 🎶</h2>
+        <input type="file" class="file-input" accept="audio/*" onchange="displayFileName(event)">
+    </div>
+
+    <script>
+        function displayFileName(event) {
+            const fileName = event.target.files[0] ? event.target.files[0].name : 'None';
+            document.getElementById('file-name').textContent = `Selected File: ${fileName}`;
+        }
+    </script>
+</body>
+</html>
