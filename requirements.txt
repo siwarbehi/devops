@@ -1,2 +1,4 @@
-Flask==2.0.1
-uWSGI==2.0.19.1
+Flask
+uWSGI
+flask-cors 
+werkzeug

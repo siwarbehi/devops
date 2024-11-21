@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./Models:/app/Models
+      - ./app:/app/app
+    depends_on:
+      - frontend
+    environment:
+      # Add any necessary environment variables here
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend:
+    build:
+      context: ./Frontend/my-angular-app
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"
+    volumes:
+      - ./Frontend/my-angular-app:/usr/share/nginx/html
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=80
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

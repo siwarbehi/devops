@@ -1,22 +1,23 @@
-# Start with a base image
-FROM python:3.8
+FROM python:3.9-slim
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Copy the current directory contents into the container
-COPY . .
+# Install system dependencies for building Python packages
+RUN apt-get update && apt-get install -y \
+    gcc \
+    build-essential \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install build dependencies (gcc and others) for uWSGI
-RUN apt-get update && \
-    apt-get install -y gcc && \
-    apt-get clean
+# Copy application files
+COPY app.py gateway.py main.py /app/
+COPY app /app/app/
+COPY Models /app/Models/
+COPY requirements.txt /app/
 
-# Install the dependencies from requirements.txt
-RUN pip install -r requirements.txt
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose the port the app runs on
-EXPOSE 5000
-
-# Define the command to run the application
-CMD ["python", "app.py"]
+# Command to run the application
+CMD ["python", "main.py"]

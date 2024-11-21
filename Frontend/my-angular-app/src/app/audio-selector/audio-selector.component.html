@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select an Audio File 🎶</title>
+    <title>Music Genre Classifier 🎶</title>
     <style>
         body {
             display: flex;
@@ -18,23 +18,23 @@
         .container {
             text-align: center;
             background-color: #ffffff;
-            padding: 100px 100px; /* Increased padding for more space */
+            padding: 50px;
             border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Slightly increased shadow for depth */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 600px; /* Increased max-width */
+            max-width: 600px;
         }
 
         h2 {
-            font-size: 28px; /* Increased font size */
-            margin-bottom: 30px; /* Increased margin for more spacing */
+            font-size: 28px;
+            margin-bottom: 30px;
             color: #333;
         }
 
         .file-input {
-            margin: 20px 0; /* Increased margin */
-            padding: 15px 20px; /* Increased padding for better interaction */
-            font-size: 18px; /* Increased font size */
+            margin: 20px 0;
+            padding: 15px 20px;
+            font-size: 18px;
             background-color: #f0f0f0;
             border: 2px solid #ddd;
             border-radius: 8px;
@@ -47,33 +47,58 @@
             border-color: #4CAF50;
         }
 
+        button {
+            margin-top: 20px;
+            padding: 10px 25px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
         p {
-            font-size: 18px; /* Increased font size for the file name display */
+            font-size: 18px;
             color: #555;
-            margin-top: 30px; /* Increased margin for better spacing */
-            transition: color 0.3s ease;
+            margin-top: 30px;
         }
 
         p#file-name {
             font-weight: bold;
         }
 
-        p:hover {
-            color: #4CAF50;
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border: 1px solid #4CAF50;
+            border-radius: 10px;
+            color: #333;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Select an Audio File 🎶</h2>
-        <input type="file" class="file-input" accept="audio/*" onchange="displayFileName(event)">
+        <h2>Music Genre Classifier 🎶</h2>
+        <input
+            type="file"
+            id="audio-file"
+            class="file-input"
+            accept="audio/*"
+            (change)="onFileSelected($event)"
+        />
+        <p id="file-name">{{ selectedFileName || 'No file selected' }}</p>
+        <button (click)="uploadFile()">Upload & Classify</button>
+        <div *ngIf="result" class="result">
+            {{ result }}
+        </div>
     </div>
-
-    <script>
-        function displayFileName(event) {
-            const fileName = event.target.files[0] ? event.target.files[0].name : 'None';
-            document.getElementById('file-name').textContent = `Selected File: ${fileName}`;
-        }
-    </script>
+    
 </body>
 </html>
