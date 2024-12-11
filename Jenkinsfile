@@ -1,61 +1,41 @@
+
+
 pipeline {
     agent any
-
     stages {
-        stage('Checkout Code and repository') {
+        stage('Clone Repository') {
             steps {
-                echo 'Checking out repository...'
                 git branch: 'main', url: 'https://github.com/siwarbehi/devops.git'
             }
         }
-        stage('Build frontend') {
+        stage('Check Docker Version') {
             steps {
                 script {
-                    dir('Frontend/my-angular-app')
-                        {bat 'docker build -t frontend .'}
+                    bat 'docker --version'
                 }
             }
         }
-
-        stage('Build svm') {
+        stage('Build Docker Images') {
             steps {
                 script {
-                    dir('SVM')
-                        {bat 'docker build -t svm .'}
+                    bat 'docker-compose build'
                 }
             }
         }
-        stage('Build vgg') {
+        stage('Run Containers') {
             steps {
                 script {
-                    dir('vgg')
-                        {bat 'docker build -t vgg .'}
+                    bat 'docker-compose up -d'
                 }
             }
         }
-        stage('Build and Start Services with Docker Compose') {
-            steps {
-                script {
-                        bat 'docker-compose up -d'
-                }
-            }
-        }
-
-
-        stage('Push Docker Images') {
-            steps {
-                script {
-                    
-                        bat 'docker-compose push'
-                }
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                
-                echo 'Deploying app...'
-            }
-        }
+        // Uncomment and modify if you need to stop the containers in the future
+        // stage('Stop Containers') {
+        //     steps {
+        //         script {
+        //             bat 'docker-compose down'
+        //         }
+        //     }
+        // }
     }
 }
