@@ -5,7 +5,7 @@ services:
     build:
       context: ./SVM
     ports:
-      - "5001:5000"
+      - "5002:5000"
     networks:
       - app-network
 
@@ -13,7 +13,7 @@ services:
     build:
       context: ./vgg
     ports:
-      - "5001:5001"
+      - "5003:5001"
     networks:
       - app-network
 
