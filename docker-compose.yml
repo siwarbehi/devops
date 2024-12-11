@@ -13,7 +13,7 @@ services:
     build:
       context: ./vgg
     ports:
-      - "5004:5001"
+      - "5009:5001"
     networks:
       - app-network
 
