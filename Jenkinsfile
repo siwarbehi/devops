@@ -11,7 +11,7 @@ pipeline {
         stage('Build frontend') {
             steps {
                 script {
-                    dir('Frontend\my-angular-app')
+                    dir('Frontend/my-angular-app')
                         {bat 'docker build -t frontend .'}
                 }
             }
