@@ -8,10 +8,10 @@ import { Observable } from 'rxjs';
 export class FileUploadService {
 
   // URL pour le back-end SVM
-  private apiUrlSvm = 'http://127.0.0.1:5001/predict_svm'; 
+  private apiUrlSvm = 'http://127.0.0.1:5000/predict_svm'; 
 
   // URL pour le back-end VGG
-  private apiUrlVgg = 'http://127.0.0.1:5000/predict_vgg';  // URL correcte pour le back-end VGG
+  private apiUrlVgg = 'http://127.0.0.1:5001/predict_vgg';  // URL correcte pour le back-end VGG
 
   constructor(private http: HttpClient) {}
 
