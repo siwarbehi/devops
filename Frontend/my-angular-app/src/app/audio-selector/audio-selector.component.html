@@ -31,7 +31,7 @@
             color: #333;
         }
 
-        .file-input {
+        .file-input, .model-select {
             margin: 20px 0;
             padding: 15px 20px;
             font-size: 18px;
@@ -43,7 +43,7 @@
             transition: border-color 0.3s ease;
         }
 
-        .file-input:hover {
+        .file-input:hover, .model-select:hover {
             border-color: #4CAF50;
         }
 
@@ -86,6 +86,14 @@
 <body>
     <div class="container">
         <h2>Music Genre Classifier 🎶</h2>
+
+        <!-- Sélecteur de modèle (SVM ou VGG) -->
+        <select class="model-select" [(ngModel)]="selectedModel">
+            <option value="svm">SVM</option>
+            <option value="vgg">VGG</option>
+        </select>
+
+        <!-- Sélectionner le fichier audio -->
         <input
             type="file"
             id="audio-file"
@@ -94,11 +102,14 @@
             (change)="onFileSelected($event)"
         />
         <p id="file-name">{{ selectedFileName || 'No file selected' }}</p>
+        
+        <!-- Bouton pour télécharger et classifier -->
         <button (click)="uploadFile()">Upload & Classify</button>
+        
+        <!-- Affichage du résultat de la prédiction -->
         <div *ngIf="result" class="result">
             {{ result }}
         </div>
     </div>
-    
 </body>
 </html>
